@@ -1,4 +1,4 @@
 .env
 __pycache__/
-bot-env/
+venv/
 *.bak

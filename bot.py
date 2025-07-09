@@ -9,6 +9,8 @@ import time
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 STATUS_CHANNEL_ID = int(os.getenv("BOT_STATUS_CHANNEL_ID"))
+LOG_CHANNEL_ID = int(os.getenv("BOT_LOG_CHANNEL_ID"))
+
 ADMIN_ID = list(map(int, os.getenv("ADMIN_ID").split(',')))
 
 # Set up intents
@@ -22,6 +24,8 @@ bot = commands.Bot(command_prefix=["Z.","z.","zeon."], intents=intents)
 async def on_ready():
     await bot.change_presence(activity=discord.Game('z.help'))
     print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
+    global logchannel
+    logchannel = bot.get_channel(LOG_CHANNEL_ID)
     statuschannel = bot.get_channel(STATUS_CHANNEL_ID)
 
     if statuschannel:
@@ -29,6 +33,20 @@ async def on_ready():
     else:
         print("⚠️ Could not find the channel to send startup message.")
     
+@bot.event
+async def on_message(message):
+  if not message.author.bot and message.content.split(" ")[0] == f"<@{bot.user.id}>":
+    ctx = await bot.get_context(message)
+    await ctx.invoke(bot.get_command(name='help'))
+    # await ctx.invoke(bot.get_command(name='speak'))
+
+  if isinstance(message.channel, discord.channel.DMChannel) and not message.author.bot and not message.author.id in ADMIN_ID:
+    output = f"**-->[DM]**`{message.author}`: {message.content}"
+    print(output)
+    await logchannel.send(output)
+    if message.attachments:
+    	outputattach = ", ".join([i.url for i in message.attachments])
+    	await logchannel.send("Attachments: " + outputattach)
 
 @bot.command()
 async def ping(ctx):
