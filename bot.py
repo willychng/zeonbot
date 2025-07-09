@@ -9,7 +9,7 @@ import time
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 STATUS_CHANNEL_ID = int(os.getenv("BOT_STATUS_CHANNEL_ID"))
-ADMIN_ID = int(os.getenv("ADMIN_ID"))
+ADMIN_ID = list(map(int, os.getenv("ADMIN_ID").split(',')))
 
 # Set up intents
 intents = discord.Intents.default()
