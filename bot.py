@@ -9,6 +9,7 @@ import time
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 STATUS_CHANNEL_ID = int(os.getenv("BOT_STATUS_CHANNEL_ID"))
+ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
 # Set up intents
 intents = discord.Intents.default()
@@ -34,5 +35,17 @@ async def ping(ctx):
     """Pings the bot"""
     await ctx.send("🏓 Pong!")
 
+#-------admin commands---------
+@bot.command(hidden=True)
+async def dm(ctx, userid: discord.User, *, text):
+  if ctx.author.id in ADMIN_ID:
+    print(userid)
+    try:
+      await userid.send(text)
+      await logchannel.send(f"DM sent to {userid}")
+    except:
+      await logchannel.send(f"DM failed to send to {userid}")
+
 if __name__ == "__main__":
     bot.run(TOKEN)
+    
