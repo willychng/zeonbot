@@ -47,6 +47,8 @@ async def on_message(message):
     if message.attachments:
     	outputattach = ", ".join([i.url for i in message.attachments])
     	await logchannel.send("Attachments: " + outputattach)
+    
+  await bot.process_commands(message)
 
 @bot.command()
 async def ping(ctx):
