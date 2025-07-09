@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="z.", intents=intents)
 @bot.event
 async def on_ready():
     print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
-    statuschannel = bot.get_channel(CHANNEL_ID)
+    statuschannel = bot.get_channel(STATUS_CHANNEL_ID)
 
     if channel:
         await channel.send(f'<t:{int(time.time())}:f> Bot has started')
