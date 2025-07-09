@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+import time
+
 # Load bot token from .env file
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
@@ -13,10 +15,11 @@ intents = discord.Intents.default()
 intents.message_content = True  # Required for reading message content
 
 # Set up the bot
-bot = commands.Bot(command_prefix="z.", intents=intents)
+bot = commands.Bot(command_prefix=["Z.","z.","zeon."], intents=intents)
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=discord.Game('z.help'))
     print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
     statuschannel = bot.get_channel(STATUS_CHANNEL_ID)
 
@@ -28,6 +31,7 @@ async def on_ready():
 
 @bot.command()
 async def ping(ctx):
+    """Pings the bot"""
     await ctx.send("🏓 Pong!")
 
 if __name__ == "__main__":
