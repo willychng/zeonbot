@@ -20,8 +20,8 @@ async def on_ready():
     print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
     statuschannel = bot.get_channel(STATUS_CHANNEL_ID)
 
-    if channel:
-        await channel.send(f'<t:{int(time.time())}:f> Bot has started')
+    if statuschannel:
+        await statuschannel.send(f'<t:{int(time.time())}:f> Bot has started')
     else:
         print("⚠️ Could not find the channel to send startup message.")
     
