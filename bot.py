@@ -50,10 +50,17 @@ async def on_message(message):
     
   await bot.process_commands(message)
 
+# Define a command that calls the default help command
+@bot.command(name="info", aliases=["commands", "h", "helpmedaddy"])
+async def help_alias(ctx):
+    # Call the default help command with no arguments
+    ctx.command = ctx.bot.get_command('help')  # Trick to set the context
+    await ctx.bot.invoke(ctx)
+
 @bot.command()
 async def ping(ctx):
     """Pings the bot"""
-    await ctx.send("🏓 Pong!")
+    await ctx.send("Pong!")
 
 #-------admin commands---------
 @bot.command(hidden=True)

@@ -12,10 +12,6 @@ cd /d "%PROJECT_DIR%" || (
     exit /b 1
 )
 
-:: Pull latest code from GitHub
-echo [INFO] Pulling latest code from GitHub...
-git pull
-
 :: Create virtual environment if not exists
 if not exist "%VENV_DIR%\Scripts\activate.bat" (
     echo [INFO] Virtual environment not found. Creating it...
