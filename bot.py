@@ -4,6 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 import time
+import random
 
 # Load bot token from .env file
 load_dotenv()
