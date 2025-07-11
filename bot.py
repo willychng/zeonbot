@@ -62,6 +62,14 @@ async def ping(ctx):
     """Pings the bot"""
     await ctx.send("Pong!")
 
+@bot.command(name="choose", help="Randomly choose one option from a list.\nUsage: z.choose option1 option2 ...")
+async def choose(ctx, *options):
+    if not options:
+        await ctx.send("⚠️ You need to give me some options to choose from!\nExample: `z.choose pizza burger sushi`")
+    else:
+        choice = random.choice(options)
+        await ctx.send(f"🎲 I choose: **{choice}**")
+
 #-------admin commands---------
 @bot.command(hidden=True)
 async def dm(ctx, userid: discord.User, *, text):
