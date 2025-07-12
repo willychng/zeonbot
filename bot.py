@@ -70,6 +70,39 @@ async def choose(ctx, *options):
     else:
         choice = random.choice(options)
         await ctx.send(f"🎲 I choose: **{choice}**")
+        
+@bot.command(name="8ball", aliases=["eightball", "magic8"], help="Ask the magic 8-ball a yes/no question.")
+async def eight_ball(ctx, *, question: str = None):
+    responses = [
+        # Positive
+        "It is certain.",
+        "It is decidedly so.",
+        "Without a doubt.",
+        "Yes – definitely.",
+        "You may rely on it.",
+        "As I see it, yes.",
+        "Most likely.",
+        "Outlook good.",
+        "Yes.",
+        "Signs point to yes.",
+        
+        # Non-committal
+        "Reply hazy, try again.",
+        "Ask again later.",
+        "Better not tell you now.",
+        "Cannot predict now.",
+        "Concentrate and ask again.",
+        
+        # Negative
+        "Don't count on it.",
+        "My reply is no.",
+        "My sources say no.",
+        "Outlook not so good.",
+        "Very doubtful."
+    ]
+
+    answer = random.choice(responses)
+    await ctx.send(f"🎱 **{answer}**")
 
 #-------admin commands---------
 @bot.command(hidden=True)
