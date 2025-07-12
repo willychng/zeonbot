@@ -102,7 +102,7 @@ async def eight_ball(ctx, *, question: str = None):
     ]
 
     answer = random.choice(responses)
-    await ctx.send(f"🎱 **{answer}**")
+    await ctx.send(f"{answer}")
 
 #-------admin commands---------
 @bot.command(hidden=True)
