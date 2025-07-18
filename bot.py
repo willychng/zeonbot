@@ -2,6 +2,7 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import speedtest
 
 import time
 import random
@@ -58,10 +59,33 @@ async def help_alias(ctx):
     ctx.command = ctx.bot.get_command('help')  # Trick to set the context
     await ctx.bot.invoke(ctx)
 
-@bot.command()
+@bot.command(help="Pings the bot.")
 async def ping(ctx):
-    """Pings the bot"""
+    # """Pings the bot"""
     await ctx.send("Pong!")
+    
+    
+@bot.command(name="speedtest", help="Check Raspberry Pi's download and upload speeds.")
+async def speedtest_command(ctx):
+    await ctx.send("Running speed test... This may take up to 30 seconds.")
+    try:
+        st = speedtest.Speedtest()
+        st.get_best_server()
+
+        download_speed = st.download()  # bits per second
+        upload_speed = st.upload()      # bits per second
+
+        download_mbps = download_speed / 1_000_000
+        upload_mbps = upload_speed / 1_000_000
+
+        await ctx.send(
+            f"**Speed Test Results**:\n"
+            f"Download: **{download_mbps:.2f} Mbps**\n"
+            f"Upload: **{upload_mbps:.2f} Mbps**"
+        )
+
+    except Exception as e:
+        await ctx.send(f"⚠️ Speedtest failed: `{e}`")
 
 @bot.command(name="choose", help="Randomly choose one option from a list.\nUsage: z.choose option1 option2 ...")
 async def choose(ctx, *options):
