@@ -25,7 +25,7 @@ bot = commands.Bot(command_prefix=["Z.","z.","zeon."], intents=intents)
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game('z.help'))
-    print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
+    print(f"Logged in as {bot.user} (ID: {bot.user.id})")
     global logchannel
     logchannel = bot.get_channel(LOG_CHANNEL_ID)
     statuschannel = bot.get_channel(STATUS_CHANNEL_ID)
@@ -65,7 +65,7 @@ async def ping(ctx):
     await ctx.send("Pong!")
     
     
-@bot.command(name="speedtest", help="Check Raspberry Pi's download and upload speeds.")
+@bot.command(name="speedtest", help="Check host server's download and upload speeds.")
 async def speedtest_command(ctx):
     await ctx.send("Running speed test... This may take up to 30 seconds.")
     try:
